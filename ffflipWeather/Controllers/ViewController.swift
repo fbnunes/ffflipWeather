@@ -8,7 +8,8 @@
 import UIKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+    
 
     let networkManager = WeatherNetworkManager()
     
@@ -23,21 +24,54 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
+//    @IBOutlet weak var forecastTableView: UITableView!
+    
+    var collectionView : UICollectionView!
+    var forecastData: [ForecastTemperature] = []
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .done, target: self, action: #selector(handleAddPlaceButton)), UIBarButtonItem(image: UIImage(systemName: "thermometer"), style: .done, target: self, action: #selector(handleShowForecast)),UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .done, target: self, action: #selector(handleRefresh))]
+//        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .done, target: self, action: #selector(handleAddPlaceButton)), UIBarButtonItem(image: UIImage(systemName: "thermometer"), style: .done, target: self, action: #selector(handleShowForecast)),UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .done, target: self, action: #selector(handleRefresh))]
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
+        collectionView.register(ForecastCell.self, forCellWithReuseIdentifier: ForecastCell.reuseIdentifier)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .systemBackground
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        view.addSubview(collectionView)
+        
+        setupViews()
+        let city = UserDefaults.standard.string(forKey: "SelectedCity") ?? ""
+        print("City Forecast:", city)
+        networkManager.fetchNextFiveWeatherForecast(city: city) { (forecast) in
+            self.forecastData = forecast
+            print("Total Count:", forecast.count)
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+        
+//        forecastTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+//        forecastTableView.delegate = self
+//        forecastTableView.dataSource = self
     }
 
-
+    func setupViews() {
+        collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         manager.stopUpdatingLocation()
@@ -76,6 +110,30 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    func createCompositionalLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
+            self.createFeaturedSection()
+        }
+
+        let config = UICollectionViewCompositionalLayoutConfiguration()
+        layout.configuration = config
+        return layout
+    }
+    
+    func createFeaturedSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+
+       let layoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
+       layoutItem.contentInsets = NSDirectionalEdgeInsets(top:5, leading: 5, bottom: 0, trailing: 5)
+
+       let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(110))
+       let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [layoutItem])
+
+       let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
+      // layoutSection.orthogonalScrollingBehavior = .groupPagingCentered
+       return layoutSection
+}
+    
 //    TODO: change the function in here
     func loadDataUsingCoordinates(lat: String, lon: String) {
         networkManager.fetchCurrentLocationWeather(lat: lat, lon: lon) { (weather) in
@@ -83,9 +141,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
              let formatter = DateFormatter()
              formatter.dateFormat = "dd MMM yyyy" //yyyy
              let stringDate = formatter.string(from: Date(timeIntervalSince1970: TimeInterval(weather.dt)))
-             print("came here")
+            
+            
+             
              DispatchQueue.main.async {
                  self.temperatureLabel.text = (String(weather.main.temp.kelvinToCeliusConverter()) + "°C")
+                 self.cityNameLabel.text = "\(weather.name ?? "") , \(weather.sys.country ?? "")"
+                 self.descriptionLabel.text = weather.weather[0].description
+                 
 //                 self.currentTemperatureLabel.text = (String(weather.main.temp.kelvinToCeliusConverter()) + "°C")
 //                 self.currentLocation.text = "\(weather.name ?? "") , \(weather.sys.country ?? "")"
 //                 self.tempDescription.text = weather.weather[0].description
@@ -141,6 +204,33 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
 
 
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 7
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+////        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+////        cell.textLabel?.text = "Cell \(indexPath.row + 1)"
+////        return cell
+//
+////        let cell = tableView.dequeueReusableCell(withReuseIdentifier: ForecastCell.reuseIdentifier, for: indexPath) as! ForecastCell
+////        cell.configure(with: forecastData[indexPath.row])
+////        return cell
+//
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+//        cell.textLabel?.text = "Cell \(indexPath.row + 1)"
+//        return cell
+//    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return forecastData.count
+     }
+     
+     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ForecastCell.reuseIdentifier, for: indexPath) as! ForecastCell
+        cell.configure(with: forecastData[indexPath.row])
+        return cell
+     }
 
 }
 
