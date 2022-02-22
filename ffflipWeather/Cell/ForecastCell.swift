@@ -33,15 +33,15 @@ class ForecastCell: UICollectionViewCell, SelfConfiguringCell, UICollectionViewD
 
     override init(frame: CGRect) {
          super.init(frame: frame)
-        contentView.backgroundColor = .systemBackground
+//        contentView.backgroundColor = .systemBackground
+        contentView.backgroundColor = UIColor.clear.withAlphaComponent(0)
          contentView.layer.cornerRadius = 10
          contentView.layer.masksToBounds = true
         
         collectionView = UICollectionView(frame: CGRect(x: 100, y: 0, width: (frame.width - 112), height: frame.height), collectionViewLayout: createCompositionalLayout())
         collectionView.register(HourlyCell.self, forCellWithReuseIdentifier: HourlyCell.reuseIdentifier)
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = UIColor()
-        collectionView.backgroundColor = UIColor(hex: "#8CCCE8")
+//        collectionView.backgroundColor = UIColor(named: "daylightColor1")
         collectionView.delegate = self
         collectionView.dataSource = self
         addSubview(collectionView)
@@ -80,7 +80,7 @@ class ForecastCell: UICollectionViewCell, SelfConfiguringCell, UICollectionViewD
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/4), heightDimension: .fractionalHeight(0.75))
 
        let layoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
-       layoutItem.contentInsets = NSDirectionalEdgeInsets(top:5, leading: 5, bottom: 0, trailing: 5)
+       layoutItem.contentInsets = NSDirectionalEdgeInsets(top:5, leading: 5, bottom: 50, trailing: 5)
 
        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(110))
        let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: layoutGroupSize, subitems: [layoutItem])

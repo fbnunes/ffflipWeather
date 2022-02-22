@@ -45,7 +45,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
         collectionView.register(ForecastCell.self, forCellWithReuseIdentifier: ForecastCell.reuseIdentifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .systemBackground
+//        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = UIColor.clear.withAlphaComponent(0)
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
@@ -67,10 +68,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     }
 
     func setupViews() {
-        collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 280).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 40).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 40).isActive = true
+//        collectionView.backgroundColor = UIColor(named: "daylightColor1")
+        
+        // Making the background transparent
+        collectionView.backgroundColor = UIColor.clear.withAlphaComponent(0)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -148,6 +153,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
                  self.temperatureLabel.text = (String(weather.main.temp.kelvinToCeliusConverter()) + "°C")
                  self.cityNameLabel.text = "\(weather.name ?? "") , \(weather.sys.country ?? "")"
                  self.descriptionLabel.text = weather.weather[0].description
+                 self.collectionView.backgroundColor = UIColor.clear.withAlphaComponent(0)
                  
 //                 self.currentTemperatureLabel.text = (String(weather.main.temp.kelvinToCeliusConverter()) + "°C")
 //                 self.currentLocation.text = "\(weather.name ?? "") , \(weather.sys.country ?? "")"
