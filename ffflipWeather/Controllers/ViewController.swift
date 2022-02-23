@@ -49,9 +49,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         collectionView.backgroundColor = UIColor.clear.withAlphaComponent(0)
         collectionView.delegate = self
         collectionView.dataSource = self
-        view.addSubview(collectionView)
+//        view.addSubview(collectionView)
         
-        setupViews()
+//        setupViews()
         let city = UserDefaults.standard.string(forKey: "SelectedCity") ?? ""
         print("City Forecast:", city)
         networkManager.fetchNextFiveWeatherForecast(city: city) { (forecast) in
