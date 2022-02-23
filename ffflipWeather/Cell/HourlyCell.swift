@@ -43,7 +43,8 @@ class HourlyCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
          super.init(frame: frame)
-        contentView.backgroundColor = UIColor.systemBackground
+//        contentView.backgroundColor = UIColor.systemBackground
+        contentView.backgroundColor = UIColor.clear.withAlphaComponent(0)
          contentView.layer.cornerRadius = 10
          contentView.layer.masksToBounds = true
     
@@ -63,16 +64,20 @@ class HourlyCell: UICollectionViewCell {
         hourlyTimeLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
         hourlyTimeLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         hourlyTimeLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+//        hourlyTimeLabel.backgroundColor = UIColor.clear.withAlphaComponent(0)
+//        hourlyTimeLabel.backgroundColor = UIColor(named: "red")
         
         tempSymbol.topAnchor.constraint(equalTo: hourlyTimeLabel.bottomAnchor, constant: 6).isActive = true
         tempSymbol.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         tempSymbol.heightAnchor.constraint(equalToConstant: 30).isActive = true
         tempSymbol.widthAnchor.constraint(equalToConstant: 30).isActive = true
+//        tempSymbol.backgroundColor = UIColor(named: "red")
         
         tempLabel.topAnchor.constraint(equalTo: tempSymbol.bottomAnchor).isActive = true
         tempLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         tempLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         tempLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+//        tempLabel.backgroundColor = UIColor(named: "red")
         
     }
     
