@@ -43,7 +43,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         locationManager.startUpdatingLocation()
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
-        collectionView.register(ForecastCell.self, forCellWithReuseIdentifier: ForecastCell.reuseIdentifier)
+        collectionView.register(WeeklyCell.self, forCellWithReuseIdentifier: WeeklyCell.reuseIdentifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = UIColor.clear.withAlphaComponent(0)
         collectionView.delegate = self
@@ -205,7 +205,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
      }
      
      func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ForecastCell.reuseIdentifier, for: indexPath) as! ForecastCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WeeklyCell.reuseIdentifier, for: indexPath) as! WeeklyCell
         cell.configure(with: forecastData[indexPath.row])
         return cell
      }

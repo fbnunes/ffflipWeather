@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		122CA52527C71F9900B5471A /* WeeklyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122CA52427C71F9900B5471A /* WeeklyCell.swift */; };
 		F2D490A827C1A18F00411CCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D490A727C1A18F00411CCE /* AppDelegate.swift */; };
 		F2D490AA27C1A18F00411CCE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D490A927C1A18F00411CCE /* SceneDelegate.swift */; };
 		F2D490AC27C1A18F00411CCE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D490AB27C1A18F00411CCE /* ViewController.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		122CA52427C71F9900B5471A /* WeeklyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCell.swift; sourceTree = "<group>"; };
 		F2D490A427C1A18F00411CCE /* ffflipWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ffflipWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2D490A727C1A18F00411CCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2D490A927C1A18F00411CCE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 		F2D490F727C1F4AB00411CCE /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				122CA52427C71F9900B5471A /* WeeklyCell.swift */,
 				F2D490F827C1F4AB00411CCE /* HourlyCell.swift */,
 				F2D490F927C1F4AB00411CCE /* ForecastCell.swift */,
 				F2D490FA27C1F4AB00411CCE /* SelfConfiguringCell.swift */,
@@ -340,6 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				122CA52527C71F9900B5471A /* WeeklyCell.swift in Sources */,
 				F2D490AC27C1A18F00411CCE /* ViewController.swift in Sources */,
 				F2D490F527C1F43600411CCE /* ForecastViewController.swift in Sources */,
 				F2D490EE27C1A23E00411CCE /* DateExtension.swift in Sources */,
