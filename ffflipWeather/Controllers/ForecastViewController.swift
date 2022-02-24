@@ -29,6 +29,7 @@ class ForecastViewController : UIViewController, UICollectionViewDataSource, UIC
         collectionView.dataSource = self
         view.addSubview(collectionView)
         setupViews()
+        
         let city = UserDefaults.standard.string(forKey: "SelectedCity") ?? ""
         print("City Forecast:", city)
         networkManager.fetchNextFiveWeatherForecast(city: city) { (forecast) in
