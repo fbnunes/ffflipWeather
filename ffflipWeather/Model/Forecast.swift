@@ -7,6 +7,11 @@
 
 import UIKit
 
+struct ForecastTemperature {
+    let weekDay: String?
+    let hourlyForecast: [WeatherInfo]?
+}
+
 struct WeatherInfo {
     let temp: Float
     let min_temp: Float
@@ -16,8 +21,4 @@ struct WeatherInfo {
     let time: String
 }
 
-struct ForecastTemperature {
-    let weekDay: String?
-    let hourlyForecast: [WeatherInfo]?
-}
 

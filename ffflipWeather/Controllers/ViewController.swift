@@ -45,13 +45,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
         collectionView.register(ForecastCell.self, forCellWithReuseIdentifier: ForecastCell.reuseIdentifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-//        collectionView.backgroundColor = .systemBackground
         collectionView.backgroundColor = UIColor.clear.withAlphaComponent(0)
         collectionView.delegate = self
         collectionView.dataSource = self
-//        view.addSubview(collectionView)
+        view.addSubview(collectionView)
         
-//        setupViews()
+        setupViews()
+        
         let city = UserDefaults.standard.string(forKey: "SelectedCity") ?? ""
         print("City Forecast:", city)
         networkManager.fetchNextFiveWeatherForecast(city: city) { (forecast) in
@@ -98,17 +98,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
              formatter.dateFormat = "dd MMM yyyy" //yyyy
              let stringDate = formatter.string(from: Date(timeIntervalSince1970: TimeInterval(weather.dt)))
              
-//            print((String(weather.main.temp.kelvinToCeliusConverter()) + "°C"))
              DispatchQueue.main.async {
-//                 print((String(weather.main.temp.kelvinToCeliusConverter()) + "°C"))
                  self.temperatureLabel.text = (String(weather.main.temp.kelvinToCeliusConverter()) + "°C")
-//                 self.currentTemperatureLabel.text = (String(weather.main.temp.kelvinToCeliusConverter()) + "°C")
-//                 self.currentLocation.text = "\(weather.name ?? "") , \(weather.sys.country ?? "")"
-//                 self.tempDescription.text = weather.weather[0].description
-//                 self.currentTime.text = stringDate
-//                 self.minTemp.text = ("Min: " + String(weather.main.temp_min.kelvinToCeliusConverter()) + "°C" )
-//                 self.maxTemp.text = ("Max: " + String(weather.main.temp_max.kelvinToCeliusConverter()) + "°C" )
-//                 self.tempSymbol.loadImageFromURL(url: "http://openweathermap.org/img/wn/\(weather.weather[0].icon)@2x.png")
                  UserDefaults.standard.set("\(weather.name ?? "")", forKey: "SelectedCity")
              }
             
@@ -208,25 +199,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         title: "", style: .plain, target: nil, action: nil)
        
     }
-
-
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 7
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-////        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-////        cell.textLabel?.text = "Cell \(indexPath.row + 1)"
-////        return cell
-//
-////        let cell = tableView.dequeueReusableCell(withReuseIdentifier: ForecastCell.reuseIdentifier, for: indexPath) as! ForecastCell
-////        cell.configure(with: forecastData[indexPath.row])
-////        return cell
-//
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-//        cell.textLabel?.text = "Cell \(indexPath.row + 1)"
-//        return cell
-//    }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return forecastData.count
