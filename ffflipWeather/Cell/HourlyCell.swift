@@ -64,19 +64,21 @@ class HourlyCell: UICollectionViewCell {
         hourlyTimeLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
         hourlyTimeLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         hourlyTimeLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-//        hourlyTimeLabel.backgroundColor = UIColor.clear.withAlphaComponent(0)
+        hourlyTimeLabel.backgroundColor = UIColor.clear.withAlphaComponent(0)
 //        hourlyTimeLabel.backgroundColor = UIColor(named: "red")
         
         tempSymbol.topAnchor.constraint(equalTo: hourlyTimeLabel.bottomAnchor, constant: 6).isActive = true
         tempSymbol.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         tempSymbol.heightAnchor.constraint(equalToConstant: 30).isActive = true
         tempSymbol.widthAnchor.constraint(equalToConstant: 30).isActive = true
+//        tempSymbol.backgroundColor = UIColor.clear.withAlphaComponent(0)
 //        tempSymbol.backgroundColor = UIColor(named: "red")
         
         tempLabel.topAnchor.constraint(equalTo: tempSymbol.bottomAnchor).isActive = true
         tempLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         tempLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         tempLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        tempLabel.backgroundColor = UIColor.clear.withAlphaComponent(0)
 //        tempLabel.backgroundColor = UIColor(named: "red")
         
     }
@@ -92,12 +94,13 @@ class HourlyCell: UICollectionViewCell {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
 
-        if let date = dateFormatterGet.date(from: item.time) {
-            hourlyTimeLabel.text = dateFormatter.string(from: date)
-        }
+//        if let date = dateFormatterGet.date(from: item.time) {
+//            hourlyTimeLabel.text = dateFormatter.string(from: date)
+//        }
         
-        tempSymbol.loadImageFromURL(url: "http://openweathermap.org/img/wn/\(item.icon)@2x.png")
-        tempLabel.text = String(item.temp.kelvinToCeliusConverter()) + " °C"
+//        tempSymbol.loadImageFromURL(url: "http://openweathermap.org/img/wn/\(item.icon)@2x.png")
+//        tempLabel.text = String(item.temp.kelvinToCeliusConverter()) + "°C"
+        tempLabel.text = String(((item.max_temp + item.min_temp)/2).kelvinToCeliusConverter()) + "°C"
     }
 }
 
