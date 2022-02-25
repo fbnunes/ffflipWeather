@@ -94,9 +94,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     func loadData(city: String) {
         networkManager.fetchCurrentWeather(city: city) { (weather) in
              print("Current Temperature", weather.main.temp.kelvinToCeliusConverter())
+            
+            let isoDate = "2016-04-14T10:44:00+0000"
+
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            let date = dateFormatter.date(from:isoDate)!
+            print("testing date: ", date)
+            
              let formatter = DateFormatter()
              formatter.dateFormat = "dd MMM yyyy" //yyyy
+            formatter.locale = Locale(identifier: "en_US_POSIX")
              let stringDate = formatter.string(from: Date(timeIntervalSince1970: TimeInterval(weather.dt)))
+            print("temp media: ", ((weather.main.temp_max + weather.main.temp_min)/2))
              
              DispatchQueue.main.async {
                  self.temperatureLabel.text = (String(weather.main.temp.kelvinToCeliusConverter()) + "°C")
@@ -136,9 +147,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
              print("Current Temperature", weather.main.temp.kelvinToCeliusConverter())
              let formatter = DateFormatter()
              formatter.dateFormat = "dd MMM yyyy" //yyyy
+            formatter.locale = Locale(identifier: "en_US_POSIX")
              let stringDate = formatter.string(from: Date(timeIntervalSince1970: TimeInterval(weather.dt)))
+            print("temp media: ", ((weather.main.temp_max + weather.main.temp_min)/2).kelvinToCeliusConverter())
             
             
+            let isoDate = "2016-04-14T10:44:00+0000"
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+            dateFormatter.calendar = Calendar(identifier: .iso8601)
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            let date = dateFormatter.date(from:isoDate)!
              
              DispatchQueue.main.async {
                  self.temperatureLabel.text = (String(weather.main.temp.kelvinToCeliusConverter()) + "°C")
