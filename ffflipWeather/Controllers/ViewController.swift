@@ -23,6 +23,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var avgTempLabel: UILabel!
+    @IBOutlet var backgroundView: UIView!
     
 //    @IBOutlet weak var forecastTableView: UITableView!
     
@@ -36,6 +38,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         // Do any additional setup after loading the view.
         
 //        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .done, target: self, action: #selector(handleAddPlaceButton)), UIBarButtonItem(image: UIImage(systemName: "thermometer"), style: .done, target: self, action: #selector(handleShowForecast)),UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .done, target: self, action: #selector(handleRefresh))]
+        
+        temperatureLabel.font = UIFont(name:"ArialRoundedMTBold", size: 65)
+        cityNameLabel.font = UIFont(name:"ArialRoundedMTBold", size: 30)
+        descriptionLabel.font = UIFont(name:"ArialRoundedMTBold", size: 20)
+        avgTempLabel.font = UIFont(name:"ArialRoundedMTBold", size: 10)
+//        self.view.layer.insertSublayer(gradient, at: 0)
+//        backgroundView.backgroundColor = setupBackgroundColor()
+        backgroundView.layer.insertSublayer(setupBackgroundColor(), at: 0)
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -162,7 +172,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
              DispatchQueue.main.async {
                  self.temperatureLabel.text = (String(weather.main.temp.kelvinToCeliusConverter()) + "°C")
                  self.cityNameLabel.text = "\(weather.name ?? "") , \(weather.sys.country ?? "")"
-                 self.descriptionLabel.text = weather.weather[0].description
+                 self.descriptionLabel.textColor = UIColor(ciColor: .white)
+                 self.descriptionLabel.text = weather.weather[0].main.lowercased()
                  self.collectionView.backgroundColor = UIColor.clear.withAlphaComponent(0)
                  
 //                 self.currentTemperatureLabel.text = (String(weather.main.temp.kelvinToCeliusConverter()) + "°C")
@@ -209,7 +220,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         loadData(city: city)
     }
     
-
+    func setupBackgroundColor() -> CAGradientLayer {
+        
+        let gradient: CAGradientLayer = CAGradientLayer()
+        
+        let firstColor = UIColor(red: 140/255, green: 204/255, blue: 232/255, alpha: 1)
+        let secondColor = UIColor(red: 74/255, green: 155/255, blue: 231/255, alpha: 1)
+//        let firstColor = UIColor(red: 0, green: 255, blue: 255, alpha: 0.5)
+        
+        
+        gradient.colors = [firstColor.cgColor, secondColor.cgColor]
+        gradient.locations = [0.0 , 1.0]
+        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
+        gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        
+        
+        return gradient
+    }
+    
     func transparentNavigationBar() {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
