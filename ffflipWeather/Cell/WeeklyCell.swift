@@ -17,6 +17,18 @@ class WeeklyCell: UICollectionViewCell, SelfConfiguringCell, UICollectionViewDel
         label.text = "Monday"
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name:"ArialRoundedMTBold", size: 15)
+//        print(label.text?.prefix(3))
+        return label
+    }()
+    
+    let emojiTemperature: UILabel = {
+       let label = UILabel()
+        label.text = "☀️"
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.textAlignment = .center
+        label.textColor = .label
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -54,6 +66,7 @@ class WeeklyCell: UICollectionViewCell, SelfConfiguringCell, UICollectionViewDel
     
     func setupViews() {
         addSubview(weekdaylabel)
+        addSubview(emojiTemperature)
         addSubview(tempSymbol)
     }
     
@@ -63,6 +76,18 @@ class WeeklyCell: UICollectionViewCell, SelfConfiguringCell, UICollectionViewDel
         weekdaylabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         weekdaylabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
+        emojiTemperature.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        emojiTemperature.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -45).isActive = true
+        emojiTemperature.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        emojiTemperature.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        
+    }
+    
+    func weekDayPrefix(word: String) -> String{
+        var newString = word
+        newString = newString.uppercased()
+        
+        return String(newString.prefix(3))
     }
     
     func createCompositionalLayout() -> UICollectionViewLayout {
@@ -103,8 +128,10 @@ class WeeklyCell: UICollectionViewCell, SelfConfiguringCell, UICollectionViewDel
     }
     
     func configure(with item: ForecastTemperature) {
-        weekdaylabel.text = item.weekDay
+//        weekdaylabel.text = item.weekDay?.uppercased()
+        weekdaylabel.text = weekDayPrefix(word: item.weekDay ?? "")
         dailyForecast = item.hourlyForecast ?? []
     }
+    
     
 }

@@ -216,10 +216,10 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TE9-sC-7be">
-                                <rect key="frame" x="300" y="321" width="20" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="avg temperature" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TE9-sC-7be">
+                                <rect key="frame" x="267" y="297" width="100" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -241,6 +241,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="avgTempLabel" destination="TE9-sC-7be" id="ww7-Yf-isx"/>
+                        <outlet property="backgroundView" destination="8bC-Xf-vdC" id="QjX-jg-CPg"/>
                         <outlet property="cityNameLabel" destination="mzI-8S-Yac" id="G7n-mZ-5TM"/>
                         <outlet property="descriptionLabel" destination="Kly-hr-f98" id="p1B-ox-J4n"/>
                         <outlet property="temperatureLabel" destination="hzc-QS-kTX" id="ppo-gc-Cvm"/>

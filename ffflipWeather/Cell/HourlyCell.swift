@@ -19,6 +19,7 @@ class HourlyCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 15)
         label.textAlignment = .center
         label.textColor = .white
+        label.font = UIFont(name:"ArialRoundedMTBold", size: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -41,7 +42,7 @@ class HourlyCell: UICollectionViewCell {
     func layoutViews() {
         tempLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         tempLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        tempLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        tempLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 200).isActive = true
         tempLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         tempLabel.backgroundColor = UIColor.clear.withAlphaComponent(0)
         
@@ -58,7 +59,9 @@ class HourlyCell: UICollectionViewCell {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
 
-        tempLabel.text = String(((item.max_temp + item.min_temp)/2).kelvinToCeliusConverter()) + "°C"
+        tempLabel.text = String(((item.max_temp + item.min_temp)/2).kelvinToCeliusConverter()) + " °C"
+//        tempLabel.text = "\(item.min_temp.kelvinToCeliusConverter()) ... \(item.max_temp.kelvinToCeliusConverter()) °C"
+        
     }
 }
 
