@@ -13,29 +13,12 @@ class HourlyCell: UICollectionViewCell {
     
     static var reuseIdentifier: String = "HourlyCell"
     
-    let hourlyTimeLabel: UILabel = {
-       let label = UILabel()
-        label.text = "05:00"
-        label.font = UIFont.systemFont(ofSize: 8)
-        label.textAlignment = .center
-        label.textColor = .label
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let tempSymbol: UIImageView = {
-       let img = UIImageView()
-        img.contentMode = .scaleAspectFit
-        img.translatesAutoresizingMaskIntoConstraints = false
-        return img
-    }()
-    
     let tempLabel: UILabel = {
        let label = UILabel()
         label.text = "05:00"
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.textAlignment = .center
-        label.textColor = .label
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -43,43 +26,24 @@ class HourlyCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
          super.init(frame: frame)
-//        contentView.backgroundColor = UIColor.systemBackground
         contentView.backgroundColor = UIColor.clear.withAlphaComponent(0)
          contentView.layer.cornerRadius = 10
          contentView.layer.masksToBounds = true
     
-        
          setupViews()
          layoutViews()
      }
     
     func setupViews() {
-        addSubview(hourlyTimeLabel)
-        addSubview(tempSymbol)
         addSubview(tempLabel)
     }
     
     func layoutViews() {
-        hourlyTimeLabel.topAnchor.constraint(equalTo: topAnchor, constant: 4).isActive = true
-        hourlyTimeLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
-        hourlyTimeLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        hourlyTimeLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        hourlyTimeLabel.backgroundColor = UIColor.clear.withAlphaComponent(0)
-//        hourlyTimeLabel.backgroundColor = UIColor(named: "red")
-        
-        tempSymbol.topAnchor.constraint(equalTo: hourlyTimeLabel.bottomAnchor, constant: 6).isActive = true
-        tempSymbol.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        tempSymbol.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        tempSymbol.widthAnchor.constraint(equalToConstant: 30).isActive = true
-//        tempSymbol.backgroundColor = UIColor.clear.withAlphaComponent(0)
-//        tempSymbol.backgroundColor = UIColor(named: "red")
-        
-        tempLabel.topAnchor.constraint(equalTo: tempSymbol.bottomAnchor).isActive = true
+        tempLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         tempLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         tempLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         tempLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         tempLabel.backgroundColor = UIColor.clear.withAlphaComponent(0)
-//        tempLabel.backgroundColor = UIColor(named: "red")
         
     }
     
@@ -94,12 +58,6 @@ class HourlyCell: UICollectionViewCell {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
 
-//        if let date = dateFormatterGet.date(from: item.time) {
-//            hourlyTimeLabel.text = dateFormatter.string(from: date)
-//        }
-        
-//        tempSymbol.loadImageFromURL(url: "http://openweathermap.org/img/wn/\(item.icon)@2x.png")
-//        tempLabel.text = String(item.temp.kelvinToCeliusConverter()) + "°C"
         tempLabel.text = String(((item.max_temp + item.min_temp)/2).kelvinToCeliusConverter()) + "°C"
     }
 }
