@@ -15,7 +15,7 @@ class WeeklyCell: UICollectionViewCell, SelfConfiguringCell, UICollectionViewDel
     let weekdaylabel: UILabel = {
        let label = UILabel()
         label.text = "Monday"
-        label.textColor = .label
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -42,6 +42,7 @@ class WeeklyCell: UICollectionViewCell, SelfConfiguringCell, UICollectionViewDel
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.backgroundColor = UIColor.clear.withAlphaComponent(0)
         addSubview(collectionView)
          setupViews()
          layoutViews()
@@ -57,7 +58,7 @@ class WeeklyCell: UICollectionViewCell, SelfConfiguringCell, UICollectionViewDel
     }
     
     func layoutViews() {
-        weekdaylabel.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
+        weekdaylabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         weekdaylabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
         weekdaylabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         weekdaylabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
@@ -75,7 +76,7 @@ class WeeklyCell: UICollectionViewCell, SelfConfiguringCell, UICollectionViewDel
     }
         
     func createFeaturedSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/4), heightDimension: .fractionalHeight(0.75))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2), heightDimension: .fractionalHeight(0.75))
 
        let layoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
        layoutItem.contentInsets = NSDirectionalEdgeInsets(top:5, leading: 5, bottom: 50, trailing: 5)
