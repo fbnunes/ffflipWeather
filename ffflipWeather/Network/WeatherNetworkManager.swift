@@ -56,12 +56,12 @@ class WeatherNetworkManager : NetworkManagerProtocol {
         let formattedCity = String().removeDiacritics(sentence: city.replacingOccurrences(of: " ", with: "+"))
         let API_URL = "http://api.openweathermap.org/data/2.5/forecast?q=\(formattedCity)&appid=\(NetworkProperties.API_KEY)"
         
-        var currentDayTemp = ForecastTemperature(weekDay: nil, hourlyForecast: nil)
-        var secondDayTemp = ForecastTemperature(weekDay: nil, hourlyForecast: nil)
-        var thirdDayTemp = ForecastTemperature(weekDay: nil, hourlyForecast: nil)
-        var fourthDayTemp = ForecastTemperature(weekDay: nil, hourlyForecast: nil)
-        var fifthDayTemp = ForecastTemperature(weekDay: nil, hourlyForecast: nil)
-        var sixthDayTemp = ForecastTemperature(weekDay: nil, hourlyForecast: nil)
+        var currentDayTemp = ForecastTemperature(weekDay: nil, hourlyForecast: nil, tempEmoji: nil)
+        var secondDayTemp = ForecastTemperature(weekDay: nil, hourlyForecast: nil, tempEmoji: nil)
+        var thirdDayTemp = ForecastTemperature(weekDay: nil, hourlyForecast: nil, tempEmoji: nil)
+        var fourthDayTemp = ForecastTemperature(weekDay: nil, hourlyForecast: nil, tempEmoji: nil)
+        var fifthDayTemp = ForecastTemperature(weekDay: nil, hourlyForecast: nil, tempEmoji: nil)
+        var sixthDayTemp = ForecastTemperature(weekDay: nil, hourlyForecast: nil, tempEmoji: nil)
         
     
         guard let url = URL(string: API_URL) else {
@@ -114,6 +114,7 @@ class WeatherNetworkManager : NetworkManagerProtocol {
                         let currentDayComponent = calendar.dateComponents([.weekday], from: Date())
                         let currentWeekDay = currentDayComponent.weekday! - 1
                         let currentweekdaysymbol = f.weekdaySymbols[currentWeekDay]
+                        let currentTempEmoji = UILabel()
                         
                         if weekdaycomponent == currentWeekDay - 1 {
                             totalData = totalData - 1
@@ -123,37 +124,37 @@ class WeatherNetworkManager : NetworkManagerProtocol {
                         if weekdaycomponent == currentWeekDay {
                             let info = WeatherInfo(temp: mainTemp, min_temp: minTemp, max_temp: maxTemp, description: descriptionTemp, icon: icon, time: time)
                             currentDayForecast.append(info)
-                            currentDayTemp = ForecastTemperature(weekDay: currentweekdaysymbol, hourlyForecast: currentDayForecast)
+                            currentDayTemp = ForecastTemperature(weekDay: currentweekdaysymbol, hourlyForecast: currentDayForecast, tempEmoji: currentTempEmoji)
                             print("1")
                             fetchedData.append(info)
                         }else if weekdaycomponent == currentWeekDay.incrementWeekDays(by: 1) {
                             let info = WeatherInfo(temp: mainTemp, min_temp: minTemp, max_temp: maxTemp, description: descriptionTemp, icon: icon, time: time)
                             secondDayForecast.append(info)
-                            secondDayTemp = ForecastTemperature(weekDay: weekday, hourlyForecast: secondDayForecast)
+                            secondDayTemp = ForecastTemperature(weekDay: weekday, hourlyForecast: secondDayForecast, tempEmoji: currentTempEmoji)
                             print("2")
                             fetchedData.append(info)
                         }else if weekdaycomponent == currentWeekDay.incrementWeekDays(by: 2) {
                             let info = WeatherInfo(temp: mainTemp, min_temp: minTemp, max_temp: maxTemp, description: descriptionTemp, icon: icon, time: time)
                             thirddayDayForecast.append(info)
                             print("3")
-                            thirdDayTemp = ForecastTemperature(weekDay: weekday, hourlyForecast: thirddayDayForecast)
+                            thirdDayTemp = ForecastTemperature(weekDay: weekday, hourlyForecast: thirddayDayForecast, tempEmoji: currentTempEmoji)
                             fetchedData.append(info)
                         }else if weekdaycomponent == currentWeekDay.incrementWeekDays(by: 3) {
                             let info = WeatherInfo(temp: mainTemp, min_temp: minTemp, max_temp: maxTemp, description: descriptionTemp, icon: icon, time: time)
                             fourthDayDayForecast.append(info)
                             print("4")
-                            fourthDayTemp = ForecastTemperature(weekDay: weekday, hourlyForecast: fourthDayDayForecast)
+                            fourthDayTemp = ForecastTemperature(weekDay: weekday, hourlyForecast: fourthDayDayForecast, tempEmoji: currentTempEmoji)
                             fetchedData.append(info)
                         }else if weekdaycomponent == currentWeekDay.incrementWeekDays(by: 4){
                             let info = WeatherInfo(temp: mainTemp, min_temp: minTemp, max_temp: maxTemp, description: descriptionTemp, icon: icon, time: time)
                             fifthDayForecast.append(info)
-                            fifthDayTemp = ForecastTemperature(weekDay: weekday, hourlyForecast: fifthDayForecast)
+                            fifthDayTemp = ForecastTemperature(weekDay: weekday, hourlyForecast: fifthDayForecast, tempEmoji: currentTempEmoji)
                             fetchedData.append(info)
                             print("5")
                         }else if weekdaycomponent == currentWeekDay.incrementWeekDays(by: 5) {
                             let info = WeatherInfo(temp: mainTemp, min_temp: minTemp, max_temp: maxTemp, description: descriptionTemp, icon: icon, time: time)
                             sixthDayForecast.append(info)
-                            sixthDayTemp = ForecastTemperature(weekDay: weekday, hourlyForecast: sixthDayForecast)
+                            sixthDayTemp = ForecastTemperature(weekDay: weekday, hourlyForecast: sixthDayForecast, tempEmoji: currentTempEmoji)
                             fetchedData.append(info)
                             print("6")
                         }
