@@ -10,6 +10,7 @@ import UIKit
 struct ForecastTemperature {
     let weekDay: String?
     let hourlyForecast: [WeatherInfo]?
+    let tempEmoji: UILabel?
 }
 
 struct WeatherInfo {

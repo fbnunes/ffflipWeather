@@ -18,17 +18,19 @@ class WeeklyCell: UICollectionViewCell, SelfConfiguringCell, UICollectionViewDel
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name:"ArialRoundedMTBold", size: 15)
+        label.layer.compositingFilter = "overlayBlendMode"
 //        print(label.text?.prefix(3))
         return label
     }()
     
-    let emojiTemperature: UILabel = {
+    let tempEmoji: UILabel = {
        let label = UILabel()
         label.text = "☀️"
         label.font = UIFont.systemFont(ofSize: 20)
         label.textAlignment = .center
         label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.layer.compositingFilter = "overlayBlendMode"
         return label
     }()
     
@@ -42,6 +44,7 @@ class WeeklyCell: UICollectionViewCell, SelfConfiguringCell, UICollectionViewDel
     
     var dailyForecast: [WeatherInfo] = []
     var collectionView : UICollectionView!
+//    var tempEmoji: String?
     
     override init(frame: CGRect) {
          super.init(frame: frame)
@@ -66,7 +69,7 @@ class WeeklyCell: UICollectionViewCell, SelfConfiguringCell, UICollectionViewDel
     
     func setupViews() {
         addSubview(weekdaylabel)
-        addSubview(emojiTemperature)
+        addSubview(tempEmoji)
         addSubview(tempSymbol)
     }
     
@@ -76,10 +79,10 @@ class WeeklyCell: UICollectionViewCell, SelfConfiguringCell, UICollectionViewDel
         weekdaylabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         weekdaylabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
-        emojiTemperature.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        emojiTemperature.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -45).isActive = true
-        emojiTemperature.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        emojiTemperature.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        tempEmoji.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        tempEmoji.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -45).isActive = true
+        tempEmoji.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        tempEmoji.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
     }
     
@@ -127,10 +130,58 @@ class WeeklyCell: UICollectionViewCell, SelfConfiguringCell, UICollectionViewDel
         return cell
     }
     
+    func setupEmojiTemperature(word: String) -> String {
+//        if (word == "Wednesday") {
+//            return String("☁️")
+//        }
+        switch word {
+            case "clear sky":
+            return "☀️"
+            
+            case "few clouds":
+            return "🌥"
+            
+            case "broken clouds":
+            return "🌥"
+            
+            case "scattered clouds":
+            return "🌥"
+            
+            case "overcast clouds":
+            return "🌥"
+            
+            case "shower rain":
+            return "🌧"
+            
+            case "rain":
+            return "🌧"
+                
+            case "thunderstorm":
+            return "⛈"
+                
+            case "snow":
+            return "❄️"
+                
+            case "mist":
+            return "🌬"
+            
+            
+            
+        default:
+            return " "
+        }
+        
+//        return word
+    }
+    
     func configure(with item: ForecastTemperature) {
 //        weekdaylabel.text = item.weekDay?.uppercased()
         weekdaylabel.text = weekDayPrefix(word: item.weekDay ?? "")
         dailyForecast = item.hourlyForecast ?? []
+//        tempEmoji.text = item.tempEmoji?.text
+        tempEmoji.text = setupEmojiTemperature(word: item.hourlyForecast?[0].description ?? "")
+    
+        print(item.hourlyForecast?[0].description)
     }
     
     
