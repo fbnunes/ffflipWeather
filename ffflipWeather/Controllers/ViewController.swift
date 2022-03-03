@@ -10,7 +10,6 @@ import CoreLocation
 
 class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     
-
     let networkManager = WeatherNetworkManager()
     
     var locationManager = CLLocationManager()
@@ -19,33 +18,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     var latitude : CLLocationDegrees!
     var longitude: CLLocationDegrees!
     
-    
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var avgTempLabel: UILabel!
     @IBOutlet var backgroundView: UIView!
     
-//    @IBOutlet weak var forecastTableView: UITableView!
-    
     var collectionView : UICollectionView!
     var forecastData: [ForecastTemperature] = []
 
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-//        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .done, target: self, action: #selector(handleAddPlaceButton)), UIBarButtonItem(image: UIImage(systemName: "thermometer"), style: .done, target: self, action: #selector(handleShowForecast)),UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .done, target: self, action: #selector(handleRefresh))]
+        view.backgroundColor = .systemBackground
         
         temperatureLabel.font = UIFont(name:"ArialRoundedMTBold", size: 65)
         cityNameLabel.font = UIFont(name:"ArialRoundedMTBold", size: 30)
         descriptionLabel.font = UIFont(name:"ArialRoundedMTBold", size: 20)
         avgTempLabel.font = UIFont(name:"ArialRoundedMTBold", size: 10)
-//        self.view.layer.insertSublayer(gradient, at: 0)
-//        backgroundView.backgroundColor = setupBackgroundColor()
         backgroundView.layer.insertSublayer(setupBackgroundColor(), at: 0)
+        
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .done, target: self, action: #selector(handleAddPlaceButton)),UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .done, target: self, action: #selector(handleRefresh))]
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -60,6 +53,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         collectionView.dataSource = self
         view.addSubview(collectionView)
         
+        transparentNavigationBar()
         setupViews()
         
         let city = UserDefaults.standard.string(forKey: "SelectedCity") ?? ""
@@ -71,10 +65,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
                 self.collectionView.reloadData()
             }
         }
-        
-//        forecastTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-//        forecastTableView.delegate = self
-//        forecastTableView.dataSource = self
     }
 
     func setupViews() {
@@ -82,7 +72,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 40).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 40).isActive = true
-//        collectionView.backgroundColor = UIColor(named: "daylightColor1")
         
         // Making the background transparent
         collectionView.backgroundColor = UIColor.clear.withAlphaComponent(0)
@@ -99,8 +88,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         loadDataUsingCoordinates(lat: latitude.description, lon: longitude.description)
         
     }
-    
-    
+     
     func loadData(city: String) {
         networkManager.fetchCurrentWeather(city: city) { (weather) in
              print("Current Temperature", weather.main.temp.kelvinToCeliusConverter())
@@ -147,7 +135,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
        let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [layoutItem])
 
        let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-      // layoutSection.orthogonalScrollingBehavior = .groupPagingCentered
        return layoutSection
 }
     
@@ -175,14 +162,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
                  self.descriptionLabel.textColor = UIColor(ciColor: .white)
                  self.descriptionLabel.text = weather.weather[0].main.lowercased()
                  self.collectionView.backgroundColor = UIColor.clear.withAlphaComponent(0)
-                 
-//                 self.currentTemperatureLabel.text = (String(weather.main.temp.kelvinToCeliusConverter()) + "°C")
-//                 self.currentLocation.text = "\(weather.name ?? "") , \(weather.sys.country ?? "")"
-//                 self.tempDescription.text = weather.weather[0].description
-//                 self.currentTime.text = stringDate
-//                 self.minTemp.text = ("Min: " + String(weather.main.temp_min.kelvinToCeliusConverter()) + "°C" )
-//                 self.maxTemp.text = ("Max: " + String(weather.main.temp_max.kelvinToCeliusConverter()) + "°C" )
-//                 self.tempSymbol.loadImageFromURL(url: "http://openweathermap.org/img/wn/\(weather.weather[0].icon)@2x.png")
+
                 UserDefaults.standard.set("\(weather.name ?? "")", forKey: "SelectedCity")
              }
         }
@@ -211,10 +191,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
          self.present(alertController, animated: true, completion: nil)
     }
 
-    @objc func handleShowForecast() {
-        self.navigationController?.pushViewController(ForecastViewController(), animated: true)
-    }
-    
     @objc func handleRefresh() {
         let city = UserDefaults.standard.string(forKey: "SelectedCity") ?? ""
         loadData(city: city)
@@ -226,8 +202,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         
         let firstColor = UIColor(red: 140/255, green: 204/255, blue: 232/255, alpha: 1)
         let secondColor = UIColor(red: 74/255, green: 155/255, blue: 231/255, alpha: 1)
-//        let firstColor = UIColor(red: 0, green: 255, blue: 255, alpha: 0.5)
-        
         
         gradient.colors = [firstColor.cgColor, secondColor.cgColor]
         gradient.locations = [0.0 , 1.0]
@@ -259,4 +233,3 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
      }
 
 }
-
