@@ -60,8 +60,6 @@ class HourlyCell: UICollectionViewCell {
         dateFormatter.dateFormat = "HH:mm"
 
         tempLabel.text = String(((item.max_temp + item.min_temp)/2).kelvinToCeliusConverter()) + " °C"
-//        tempLabel.text = "\(item.min_temp.kelvinToCeliusConverter()) ... \(item.max_temp.kelvinToCeliusConverter()) °C"
-        
     }
 }
 

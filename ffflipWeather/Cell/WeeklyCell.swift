@@ -155,6 +155,9 @@ class WeeklyCell: UICollectionViewCell, SelfConfiguringCell, UICollectionViewDel
             
             case "rain":
             return "🌧"
+            
+            case "light rain":
+            return "🌧"
                 
             case "thunderstorm":
             return "⛈"

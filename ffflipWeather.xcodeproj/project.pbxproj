@@ -28,7 +28,6 @@
 		F2D490F127C1A23E00411CCE /* WeatherNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D490E727C1A23D00411CCE /* WeatherNetworkManager.swift */; };
 		F2D490F227C1A23E00411CCE /* Network Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D490E827C1A23D00411CCE /* Network Properties.swift */; };
 		F2D490F327C1A23E00411CCE /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D490E927C1A23D00411CCE /* NetworkManagerProtocol.swift */; };
-		F2D490F527C1F43600411CCE /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D490F427C1F43600411CCE /* ForecastViewController.swift */; };
 		F2D490FB27C1F4AB00411CCE /* HourlyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D490F827C1F4AB00411CCE /* HourlyCell.swift */; };
 		F2D490FC27C1F4AB00411CCE /* ForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D490F927C1F4AB00411CCE /* ForecastCell.swift */; };
 		F2D490FD27C1F4AB00411CCE /* SelfConfiguringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D490FA27C1F4AB00411CCE /* SelfConfiguringCell.swift */; };
@@ -77,7 +76,6 @@
 		F2D490E727C1A23D00411CCE /* WeatherNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherNetworkManager.swift; sourceTree = "<group>"; };
 		F2D490E827C1A23D00411CCE /* Network Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Network Properties.swift"; sourceTree = "<group>"; };
 		F2D490E927C1A23D00411CCE /* NetworkManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerProtocol.swift; sourceTree = "<group>"; };
-		F2D490F427C1F43600411CCE /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
 		F2D490F827C1F4AB00411CCE /* HourlyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourlyCell.swift; sourceTree = "<group>"; };
 		F2D490F927C1F4AB00411CCE /* ForecastCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastCell.swift; sourceTree = "<group>"; };
 		F2D490FA27C1F4AB00411CCE /* SelfConfiguringCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfConfiguringCell.swift; sourceTree = "<group>"; };
@@ -199,7 +197,6 @@
 			isa = PBXGroup;
 			children = (
 				F2D490AB27C1A18F00411CCE /* ViewController.swift */,
-				F2D490F427C1F43600411CCE /* ForecastViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -348,7 +345,6 @@
 			files = (
 				122CA52527C71F9900B5471A /* WeeklyCell.swift in Sources */,
 				F2D490AC27C1A18F00411CCE /* ViewController.swift in Sources */,
-				F2D490F527C1F43600411CCE /* ForecastViewController.swift in Sources */,
 				F2D490EE27C1A23E00411CCE /* DateExtension.swift in Sources */,
 				F271274627CC283100D6F64A /* UIColorExtension.swift in Sources */,
 				F2D490ED27C1A23E00411CCE /* StringExtension.swift in Sources */,
