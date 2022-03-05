@@ -109,6 +109,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
              
              DispatchQueue.main.async {
                  self.temperatureLabel.text = (String(weather.main.temp.kelvinToCeliusConverter()) + "°C")
+                 self.cityNameLabel.text = "\(weather.name ?? "") , \(weather.sys.country ?? "")"
                  UserDefaults.standard.set("\(weather.name ?? "")", forKey: "SelectedCity")
              }
             
